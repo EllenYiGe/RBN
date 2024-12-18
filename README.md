@@ -1,6 +1,6 @@
 # Refined Batch Normalization for Domain Adaptation
 
-This project is an implementation of the AAAI paper "Reducing Divergence in Batch Normalization for Domain Adaptation."
+This project is an implementation of the paper "Reducing Divergence in Batch Normalization for Domain Adaptation."
 
 ## Project Structure
 ```
@@ -175,20 +175,8 @@ Accuracy on the Office-31Dataset：
 
 | Method    | A → W | D → W | W → D | A → D | D → A | W → A | Avg  |
 |-----------|-------|-------|-------|-------|-------|-------|------|
-| CDAN      | 93.1  | 98.2  | 100.0 | 89.8  | 70.1  | 68.0  | 86.6 |
-| CDAN+RBN  | 94.5  | 98.6  | 100.0 | 92.1  | 71.4  | 69.8  | 87.7 |
-
-## Citation
-
-If you use this code, please cite the original paper:
-```bibtex
-@inproceedings{rbn2024,
-  title={Reducing Divergence in Batch Normalization for Domain Adaptation},
-  author={Author Names},
-  booktitle={Proceedings of AAAI},
-  year={2024}
-}
-```
+| CDAN      | 94.1  | 98.6  | 100.0 | 92.9  | 70.1  | 69.3  | 87.7 |
+| CDAN+RBN  | 95.9  | 99.1  | 100.0 | 95.7  | 76.1 | 74.5  | 90.2 |
 
 ## License
 
