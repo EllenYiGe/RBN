@@ -13,21 +13,21 @@ project/
 │   ├── officehome/       # Office-HomeDataset
 │   └── visda2017/        # VisDA-2017Dataset
 ├── datasets/             # Dataset Loading Module
-│   ├── office31.py      # Office-31Dataset类
-│   ├── imageclef.py     # ImageCLEF-DADataset类
-│   ├── officehome.py    # Office-HomeDataset类
-│   ├── visda2017.py     # VisDA-2017Dataset类
+│   ├── office31.py      # Office-31Dataset Class
+│   ├── imageclef.py     # ImageCLEF-DADataset Class
+│   ├── officehome.py    # Office-HomeDataset Class
+│   ├── visda2017.py     # VisDA-2017Dataset Class
 │   └── transforms.py     # Data Transformation
 ├── models/              # Model Definitions
 │   ├── backbone.py     # Feature Extractor (ResNet)
 │   ├── classifier.py   # Classifier Head
 │   ├── discriminator.py# Domain Discriminator
 │   ├── rbn.py         # Refined Batch Normalization
-│   └── cdan.py        # CDAN模型
+│   └── cdan.py        # CDAN Model
 ├── utils/              # Utility Functions
 │   ├── logger.py      # Logging Utilities
 │   ├── losses.py      # Loss Functions
-│   └── utils.py       # 通用Utility Functions
+│   └── utils.py       # Common Utility Functions
 ├── output/             # Output Directory
 │   ├── checkpoints/   # Model Checkpoints
 │   └── logs/          # Training Logs
