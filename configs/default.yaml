@@ -1,0 +1,75 @@
+# Data Configuration
+data:
+  dataset_type: 'office31'  # ['office31', 'imageclef', 'officehome', 'visda']
+  num_classes: 31
+  batch_size: 32
+  num_workers: 4
+  resize_size: 256
+  crop_size: 224
+  use_mixup: true
+  mixup_alpha: 0.5
+  use_tta: true
+
+# Model Configuration
+model:
+  arch: resnet50
+  pretrained: true
+  use_rbn: true
+  replace_layer: 3
+  use_ema: true
+  ema_decay: 0.999
+
+# Training Configuration
+train:
+  epochs: 200
+  learning_rate: 0.001
+  min_lr: 1.0e-6
+  weight_decay: 0.0001
+  momentum: 0.9
+  T_0: 10  # CosineAnnealingWarmRestarts parameter
+  T_mult: 2  # CosineAnnealingWarmRestarts parameter
+  clip_grad: true
+  max_grad_norm: 10.0
+  print_freq: 50
+
+# Optimization Techniques
+optimization:
+  use_amp: true  # Automatic Mixed Precision (AMP)
+  gradient_accumulation_steps: 1
+  warmup_epochs: 5
+
+# Regularization
+regularization:
+  dropout: 0.5
+  label_smoothing: 0.1
+
+# Data Augmentation
+augmentation:
+  color_jitter:
+    brightness: 0.4
+    contrast: 0.4
+    saturation: 0.4
+    hue: 0.1
+  random_grayscale_prob: 0.2
+  gaussian_blur:
+    sigma_min: 0.1
+    sigma_max: 2.0
+
+# Logging and Saving
+logging:
+  use_wandb: true
+  project_name: "CDAN+RBN"
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+  save_freq: 10
+
+# Miscellaneous
+seed: 42
+device: "cuda"
+
+# Path Configuration
+paths:
+  output_dir: 'output'
+  log_dir: 'output/logs'
+  checkpoint_dir: 'output/checkpoints'
+  data_dir: 'data'
