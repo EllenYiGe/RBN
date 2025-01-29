@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Office-31 数据集测试脚本
 python test.py \
     --test_data data/office31/webcam \
     --dataset_type office31 \

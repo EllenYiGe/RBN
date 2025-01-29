@@ -3,12 +3,12 @@ import torch.nn as nn
 
 class ClassifierHead(nn.Module):
     """
-    分类器头部，将特征映射到类别空间
+    Classifier Head that maps features to the class space.
     
     Args:
-        in_features: 输入特征维度
-        num_classes: 类别数
-        dropout_rate: dropout比率，默认0.5
+        in_features: Input feature dimension
+        num_classes: Number of classes
+        dropout_rate: Dropout rate, default is 0.5
     """
     def __init__(self, in_features, num_classes, dropout_rate=0.5):
         super(ClassifierHead, self).__init__()
@@ -19,10 +19,10 @@ class ClassifierHead(nn.Module):
 
     def forward(self, x):
         """
-        前向传播
+        Forward pass
         Args:
-            x: 输入特征，形状为 (N, in_features)
+            x: Input features, shape (N, in_features)
         Returns:
-            logits: 类别logits，形状为 (N, num_classes)
+            logits: Class logits, shape (N, num_classes)
         """
         return self.classifier(x)

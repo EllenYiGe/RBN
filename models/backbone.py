@@ -59,47 +59,47 @@ class NonLocalBlock(nn.Module):
         return z
 
 class ResNetBackbone(nn.Module):
-    """增强版ResNet主干网络"""
+    """Enhanced ResNet Backbone"""
     def __init__(self, arch='resnet50', pretrained=True):
         super(ResNetBackbone, self).__init__()
         
-        # 加载预训练模型
+        # Load the pre-trained model
         model = getattr(models, arch)(weights='IMAGENET1K_V2' if pretrained else None)
         
-        # 移除最后的全连接层
+        # Remove the final fully connected layer
         self.features = nn.Sequential(*list(model.children())[:-2])
         
-        # 获取特征维度
+        # Get the feature dimension
         self.feature_dim = model.fc.in_features
         
-        # 添加注意力模块
+        # Add attention modules
         self.se_block = SEBlock(self.feature_dim)
         self.non_local = NonLocalBlock(self.feature_dim)
         
-        # 添加全局池化层
+        # Add global pooling layers
         self.gap = nn.AdaptiveAvgPool2d(1)
         self.gmp = nn.AdaptiveMaxPool2d(1)
         
-        # Dropout正则化
+        # Dropout regularization
         self.dropout = nn.Dropout(0.5)
 
     def forward(self, x):
-        # 提取特征
+        # Extract features
         x = self.features(x)
         
-        # 应用注意力机制
+        # Apply attention mechanisms
         x = self.non_local(x)
         x = self.se_block(x)
         
-        # 全局池化
+        # Global pooling
         avg_x = self.gap(x)
         max_x = self.gmp(x)
         x = avg_x + max_x
         
-        # 展平特征
+        # Flatten features
         x = x.view(x.size(0), -1)
         
-        # Dropout正则化
+        # Dropout regularization
         x = self.dropout(x)
         
         return x
@@ -109,12 +109,12 @@ class ResNetBackbone(nn.Module):
 
 def get_resnet_backbone(arch='resnet50', pretrained=True):
     """
-    获取ResNet主干网络
+    Get ResNet Backbone
     
     Args:
-        arch: ResNet模型类型
-        pretrained: 是否使用预训练权重
+        arch: ResNet model type
+        pretrained: Whether to use pre-trained weights
     Returns:
-        ResNet主干网络模型
+        ResNet backbone model
     """
     return ResNetBackbone(arch, pretrained)

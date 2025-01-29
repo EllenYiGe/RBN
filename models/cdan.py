@@ -4,17 +4,6 @@ from .backbone import get_resnet50_backbone
 from .classifier import ClassifierHead
 
 class CDAN(nn.Module):
-    """
-    CDAN (Conditional Domain Adversarial Networks) 模型
-    包含特征提取器(ResNet-50)和分类器头部
-    可选使用RBN替换特定层的BN
-    
-    Args:
-        num_classes: 类别数
-        use_rbn: 是否使用RBN
-        replace_layer: 从第几层开始替换BN为RBN
-        pretrained: 是否使用预训练的backbone
-    """
     def __init__(self, num_classes=31, use_rbn=True, replace_layer=3, pretrained=True):
         super(CDAN, self).__init__()
         self.feature_extractor = get_resnet50_backbone(
@@ -29,29 +18,29 @@ class CDAN(nn.Module):
 
     def forward(self, x):
         """
-        前向传播
+        Forward pass
         Args:
-            x: 输入图像，形状为 (N, C, H, W)
+            x: Input image, shape (N, C, H, W)
         Returns:
-            features: 提取的特征，形状为 (N, 2048)
-            logits: 类别预测logits，形状为 (N, num_classes)
+            features: Extracted features, shape (N, 2048)
+            logits: Class prediction logits, shape (N, num_classes)
         """
-        # 特征提取
+        # Feature extraction
         feat = self.feature_extractor(x)
         feat = feat.view(feat.size(0), -1)  # (N, 2048)
         
-        # 分类预测
+        # Classification prediction
         logits = self.classifier(feat)
         
         return feat, logits
 
     def get_parameters(self, base_lr=1.0):
         """
-        获取模型参数，用于优化器
+        Get model parameters for the optimizer
         Args:
-            base_lr: 基础学习率
+            base_lr: Base learning rate
         Returns:
-            参数列表，包含学习率倍率
+            Parameter list with learning rate multipliers
         """
         params = [
             {"params": self.feature_extractor.parameters(), "lr_mult": 0.1},

@@ -3,13 +3,13 @@ import torch.nn as nn
 
 class DomainDiscriminator(nn.Module):
     """
-    域判别器，用于对抗训练
-    输入为CDAN中特征与类别预测的外积
+    Domain Discriminator for adversarial training.
+    The input is the outer product of features and class predictions in CDAN.
     
     Args:
-        in_features: 输入特征维度 (2048 * num_classes)
-        hidden_size: 隐层维度，默认1024
-        dropout_rate: dropout比率，默认0.5
+        in_features: Input feature dimension (2048 * num_classes)
+        hidden_size: Hidden layer dimension, default is 1024
+        dropout_rate: Dropout rate, default is 0.5
     """
     def __init__(self, in_features, hidden_size=1024, dropout_rate=0.5):
         super(DomainDiscriminator, self).__init__()
@@ -25,14 +25,14 @@ class DomainDiscriminator(nn.Module):
 
     def forward(self, x):
         """
-        前向传播
+        Forward pass
         Args:
-            x: 输入特征，形状为 (N, in_features)
+            x: Input features, shape (N, in_features)
         Returns:
-            domain_pred: 域预测logits，形状为 (N, 1)
+            domain_pred: Domain prediction logits, shape (N, 1)
         """
         return self.discriminator(x)
 
     def get_parameters(self):
-        """获取可训练参数"""
+        """Get trainable parameters"""
         return [{"params": self.parameters(), "lr_mult": 1.}]

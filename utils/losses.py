@@ -3,15 +3,15 @@ import torch.nn.functional as F
 
 def domain_adversarial_loss(predictions, domain_labels, reduction='mean'):
     """
-    计算域对抗损失
-    使用二元交叉熵，源域标签为1，目标域标签为0
+    Compute domain adversarial loss.
+    Uses binary cross-entropy where source domain labels are 1 and target domain labels are 0.
     
     Args:
-        predictions: 域判别器输出，形状为 (N, 1)
-        domain_labels: 域标签，形状为 (N,)，值为0或1
-        reduction: 损失计算方式，'mean'或'sum'
+        predictions: Output from the domain discriminator, shape (N, 1).
+        domain_labels: Domain labels, shape (N,), values are 0 or 1.
+        reduction: Method for loss computation, either 'mean' or 'sum'.
     Returns:
-        loss: 标量损失值
+        loss: Scalar loss value.
     """
     predictions = predictions.view(-1)
     domain_labels = domain_labels.float()
@@ -25,14 +25,14 @@ def domain_adversarial_loss(predictions, domain_labels, reduction='mean'):
 
 def entropy_loss(predictions, reduction='mean'):
     """
-    计算预测的熵损失
-    用于目标域样本的不确定性度量
+    Compute entropy loss of predictions.
+    Used to measure the uncertainty of target domain samples.
     
     Args:
-        predictions: 分类预测logits，形状为 (N, C)
-        reduction: 损失计算方式，'mean'或'sum'
+        predictions: Classification prediction logits, shape (N, C).
+        reduction: Method for loss computation, either 'mean' or 'sum'.
     Returns:
-        entropy: 熵损失值
+        entropy: Entropy loss value.
     """
     probs = F.softmax(predictions, dim=1)
     entropy = -torch.sum(probs * torch.log(probs + 1e-10), dim=1)
