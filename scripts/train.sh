@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Office-31 数据集训练脚本
 python train.py \
     --source_data data/office31/amazon \
     --target_data data/office31/webcam \
